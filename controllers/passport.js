@@ -7,10 +7,10 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     const user = await db.getUserByUsername(username);
     if (!user) {
-      done(null, false, { message: "Username doesn't exist!" });
+      return done(null, false, { message: "Username doesn't exist!" });
     }
     if (!(await bcrypt.compare(password, user.password))) {
-      done(null, false, { message: "Password doesn't match!" });
+      return done(null, false, { message: "Password doesn't match!" });
     }
     return done(null, user);
   }),

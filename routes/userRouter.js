@@ -15,4 +15,10 @@ userRouter.post("/log-in", userController.userLogInPost);
 
 userRouter.get("/log-out", userController.userLogOut);
 
+userRouter.get("/club-membership", userController.memberFormGet);
+userRouter.post("/club-membership", userController.memberFormPost);
+
+userRouter.get("/admin-membership", userController.adminFormGet);
+userRouter.post("/admin-membership", userController.adminFormPost);
+
 module.exports = userRouter;

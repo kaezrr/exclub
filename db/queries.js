@@ -25,3 +25,11 @@ exports.getUserByID = async (id) => {
   );
   return rows[0];
 };
+
+exports.toggleUserMembership = async (id) => {
+  await db.query(`UPDATE users SET member_status = TRUE WHERE id = $1`, [id]);
+};
+
+exports.toggleUserAdmin = async (id) => {
+  await db.query(`UPDATE users SET admin_status = TRUE WHERE id = $1`, [id]);
+};

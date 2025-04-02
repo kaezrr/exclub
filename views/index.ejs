@@ -8,7 +8,26 @@
 <body>
     <% if(locals.user) {%>
         <h1>Welcome <%=user.name%></h1>
+        <ul>
+            <li>
+                <% if(user.member_status) { %>
+                    You are a club member!!!
+                <% } else { %>
+                    <a href="/club-membership">Become a club member!!!</a>
+                <% } %>
+            </li>
+            <li>
+                <% if(user.admin_status) { %>
+                    You are an administrator!!!
+                <% } else { %>
+                    <a href="/admin-membership">Become a administrator!!!</a>
+                <% } %>
+            </li>
+            <li><a href="/club-membership">Create a post</a></li>
+            <li><a href="/club-membership">View club posts</a></li>
+        </ul>
         <a href="/log-out"><button>Log out</button></a>
+
     <% } else { %>
         <h1>You need to be <a href="/log-in">logged in</a> to view this page!</h1>
     <% } %>

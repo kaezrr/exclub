@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Membership</title>
+</head>
+<body>
+    <form action="/club-membership" method="post">
+        <label for="password">Enter secret club password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Become a member</button>
+    </form>
+    <%- include("./partials/errors", {errors: locals.errors}); %>
+</body>
+</html>

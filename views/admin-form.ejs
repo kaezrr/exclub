@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Admin</title>
+</head>
+<body>
+    <form action="/admin-membership" method="post">
+        <label for="password">Enter administrator password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Become a administrator</button>
+    </form>
+    <%- include("./partials/errors", {errors: locals.errors}); %>
+</body>
+</html>

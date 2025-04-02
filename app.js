@@ -7,8 +7,8 @@ const Store = require("connect-pg-simple")(session);
 const passport = require("./controllers/passport");
 
 const userRouter = require("./routes/userRouter");
-
 const App = express();
+
 App.set("view engine", "ejs");
 App.use(express.static("public"));
 App.use(express.urlencoded({ extended: false }));
