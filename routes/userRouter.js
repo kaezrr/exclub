@@ -21,4 +21,10 @@ userRouter.post("/club-membership", userController.memberFormPost);
 userRouter.get("/admin-membership", userController.adminFormGet);
 userRouter.post("/admin-membership", userController.adminFormPost);
 
+userRouter.get("/create-post", userController.createMessageGet);
+userRouter.post("/create-post", userController.createMessagePost);
+
+userRouter.get("/delete", userController.deleteMessage);
+userRouter.get("/posts", userController.viewPosts);
+
 module.exports = userRouter;

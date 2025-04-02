@@ -95,12 +95,10 @@ exports.userLogOut = (req, res, next) => {
 };
 
 exports.memberFormGet = (req, res) => {
-  if (!req.user) res.redirect("/");
   res.render("member-form");
 };
 
 exports.memberFormPost = async (req, res) => {
-  if (!req.user) res.redirect("/");
   if (req.body.password === CLUB_PASSWORD) {
     await db.toggleUserMembership(req.user.id);
     res.redirect("/");
@@ -110,16 +108,36 @@ exports.memberFormPost = async (req, res) => {
 };
 
 exports.adminFormGet = (req, res) => {
-  if (!req.user) res.redirect("/");
   res.render("admin-form");
 };
 
 exports.adminFormPost = async (req, res) => {
-  if (!req.user) res.redirect("/");
   if (req.body.password === ADMIN_PASSWORD) {
     await db.toggleUserAdmin(req.user.id);
-    res.redirect("/");
-  } else {
-    res.render("admin-form", { errors: [{ msg: "Incorrect password!" }] });
+    return res.redirect("/");
   }
+  res.render("admin-form", { errors: [{ msg: "Incorrect password!" }] });
+};
+
+exports.deleteMessage = async (req, res) => {
+  if (!req.user || !req.user.admin_status) {
+    return res.redirect("/");
+  }
+  await db.deleteMessage(req.query.id);
+  res.redirect("/posts");
+};
+
+exports.viewPosts = async (req, res) => {
+  const posts = await db.getAllMessages();
+  res.render("messages", { posts });
+};
+
+exports.createMessageGet = (req, res) => {
+  res.render("message-form");
+};
+
+exports.createMessagePost = async (req, res) => {
+  const { title, text } = req.body;
+  await db.insertMessage(title, text, req.user.id);
+  res.redirect("/posts");
 };

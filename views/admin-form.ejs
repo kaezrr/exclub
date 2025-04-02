@@ -6,11 +6,15 @@
     <title>Request Admin</title>
 </head>
 <body>
+    <% if(locals.user) {%>
     <form action="/admin-membership" method="post">
         <label for="password">Enter administrator password</label>
         <input type="password" id="password" name="password" required>
         <button type="submit">Become a administrator</button>
     </form>
     <%- include("./partials/errors", {errors: locals.errors}); %>
+    <% } else { %>
+        <h1>You need to be <a href="/log-in">logged in</a> to view this page!</h1>
+    <% } %>
 </body>
 </html>

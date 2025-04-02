@@ -33,3 +33,23 @@ exports.toggleUserMembership = async (id) => {
 exports.toggleUserAdmin = async (id) => {
   await db.query(`UPDATE users SET admin_status = TRUE WHERE id = $1`, [id]);
 };
+
+exports.getAllMessages = async () => {
+  const { rows } = await db.query(
+    `SELECT m.id, title, text, timestamp, u.username AS username FROM messages m
+     JOIN users u ON u.id = m.user_id;`,
+  );
+  return rows;
+};
+
+exports.deleteMessage = async (id) => {
+  await db.query(`DELETE FROM messages WHERE id = $1`, [id]);
+};
+
+exports.insertMessage = async (title, text, id) => {
+  await db.query(
+    `INSERT INTO messages (title, text, user_id)
+     VALUES($1, $2, $3)`,
+    [title, text, id],
+  );
+};
