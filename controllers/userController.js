@@ -3,6 +3,7 @@ const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const passport = require("./passport");
+const { format } = require("date-fns");
 
 const { ADMIN_PASSWORD, CLUB_PASSWORD } = process.env;
 
@@ -128,8 +129,8 @@ exports.deleteMessage = async (req, res) => {
 };
 
 exports.viewPosts = async (req, res) => {
-  const posts = await db.getAllMessages();
-  res.render("messages", { posts });
+  const messages = await db.getAllMessages();
+  res.render("messages", { messages, format });
 };
 
 exports.createMessageGet = (req, res) => {

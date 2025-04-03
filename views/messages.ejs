@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Membership</title>
+    <title>Club Posts</title>
 </head>
 <body>
     <% if(locals.user) {%>
-    <form action="/club-membership" method="post">
-        <label for="password">Enter secret club password</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Become a member</button>
-    </form>
-    <%- include("./partials/errors", {errors: locals.errors}); %>
+        <% messages.forEach(msg => { %>
+        <div class="post">
+            <h2><%=msg.title%></h2>
+            <p><%=msg.text%></p>
+            <% if(user.member_status || user.admin_status) { %>
+            <p><%=msg.username%> on <%=format(new Date(msg.timestamp), "dd MMM yy")%></p>
+            <% } %>
+            <% if(user.admin_status) {%>
+            <a href="/delete?id=<%=msg.id%>"><button>delete</button></a>
+            <% } %>
+        </div>
+        <% }) %>
+            <a href="/"><button>Back to Home</button></a>
     <% } else { %>
         <h1>You need to be <a href="/log-in">logged in</a> to view this page!</h1>
     <% } %>
